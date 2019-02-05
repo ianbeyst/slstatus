@@ -98,7 +98,6 @@ fmt_human(uintmax_t num, int base)
 {
 	double scaled;
 	size_t i, prefixlen;
-	const char **prefix;
 	const char *prefix_1000[] = { "", "k", "M", "G", "T", "P", "E", "Z",
 	                              "Y" };
 	const char *prefix_1024[] = { "", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei",
@@ -106,11 +105,9 @@ fmt_human(uintmax_t num, int base)
 
 	switch (base) {
 	case 1000:
-		prefix = prefix_1000;
 		prefixlen = LEN(prefix_1000);
 		break;
 	case 1024:
-		prefix = prefix_1024;
 		prefixlen = LEN(prefix_1024);
 		break;
 	default:
@@ -123,7 +120,7 @@ fmt_human(uintmax_t num, int base)
 		scaled /= base;
 	}
 
-	return bprintf("%.1f%s", scaled, prefix[i]);
+	return bprintf("%.1f", scaled);
 }
 
 int

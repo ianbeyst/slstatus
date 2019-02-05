@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #include <stdio.h>
 #include <limits.h>
-
+#include <string.h>
 #include "../util.h"
 
 #if defined(__linux__)
@@ -28,9 +28,8 @@
 		if (oldrxbytes == 0) {
 			return NULL;
 		}
-
-		return fmt_human((rxbytes - oldrxbytes) * 1000 / interval,
-		                 1024);
+		double value = (rxbytes - oldrxbytes) / interval;
+		return bprintf("%.0f",value);
 	}
 
 	const char *
@@ -54,9 +53,9 @@
 		if (oldtxbytes == 0) {
 			return NULL;
 		}
-
-		return fmt_human((txbytes - oldtxbytes) * 1000 / interval,
-		                 1024);
+                
+		double value = (txbytes - oldtxbytes) / interval;
+                return bprintf("%.0f",value);
 	}
 #elif defined(__OpenBSD__)
 	#include <string.h>

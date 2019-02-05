@@ -21,6 +21,35 @@
 	}
 
 	const char *
+	cpu_freq_all(void)
+	{
+		uintmax_t freq0, freq1, freq2, freq3;
+
+		if (pscanf("/sys/devices/system/cpu/cpu0/cpufreq/"
+			   "scaling_cur_freq", "%ju", &freq0) != 1) {
+			return NULL;
+		}
+		if (pscanf("/sys/devices/system/cpu/cpu1/cpufreq/"
+                           "scaling_cur_freq", "%ju", &freq1) != 1) {
+                        return NULL;
+                }
+		if (pscanf("/sys/devices/system/cpu/cpu2/cpufreq/"
+                           "scaling_cur_freq", "%ju", &freq2) != 1) {
+                        return NULL;
+                }
+                if (pscanf("/sys/devices/system/cpu/cpu3/cpufreq/"
+                           "scaling_cur_freq", "%ju", &freq3) != 1) {
+                        return NULL;
+                }
+		
+		double scaled0, scaled1, scaled2, scaled3;
+		scaled0 = freq0/1000000.0;
+		scaled1 = freq1/1000000.0;
+		scaled2 = freq2/1000000.0;
+		scaled3 = freq3/1000000.0;
+		return bprintf("%.1f %.1f %.1f %.1f", scaled0, scaled1, scaled2, scaled3);
+	}
+	const char *
 	cpu_perc(void)
 	{
 		static long double a[7];

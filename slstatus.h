@@ -7,6 +7,7 @@ const char *battery_remaining(const char *);
 
 /* cpu */
 const char *cpu_freq(void);
+const char *cpu_freq_all(void);
 const char *cpu_perc(void);
 
 /* datetime */
